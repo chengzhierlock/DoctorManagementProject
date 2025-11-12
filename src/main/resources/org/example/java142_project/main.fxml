@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="719.0"
+      prefWidth="994.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="org.example.java142_project.controller.MainController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="医生设置">
+            <items>
+              <MenuItem mnemonicParsing="false" text="添加医生" onAction="#docAddHandle"/>
+              <MenuItem mnemonicParsing="false" text="医生管理" onAction="#docSetHandle"/>
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="药品设置">
+            <items>
+              <MenuItem mnemonicParsing="false" text="添加药品" />
+              <MenuItem mnemonicParsing="false" text="药品管理" />
+              <MenuItem mnemonicParsing="false" text="药品查询" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="病人就医">
+            <items>
+              <MenuItem mnemonicParsing="false" text="病人挂号" />
+              <MenuItem mnemonicParsing="false" text="病人就诊" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="统计分析">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="学历分析" />
+                    <MenuItem mnemonicParsing="false" text="岗位分析" />
+                    <MenuItem mnemonicParsing="false" text="职称分析" />
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="人工智能">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="查询信息" />
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="系统设置">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="修改密码" />
+                    <MenuItem mnemonicParsing="false" text="个人信息" />
+                    <MenuItem mnemonicParsing="false" text="注销信息" />
+                    <MenuItem mnemonicParsing="false" text="退出系统" />
+                </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane prefHeight="799.0" prefWidth="994.0" fx:id="mainFrame"/>
+   </children>
+</VBox>
