@@ -1,9 +1,7 @@
 package org.example.java142_project.service;
 
 import org.example.java142_project.common.exception.ServiceException;
-import org.example.java142_project.entity.Dept;
-import org.example.java142_project.entity.Education;
-import org.example.java142_project.entity.Job;
+import org.example.java142_project.entity.*;
 
 import java.util.List;
 
@@ -18,4 +16,7 @@ public interface DoctorService {
     List<Dept> listDepAll() throws ServiceException;
     boolean addDept(Dept dept) throws ServiceException;
     boolean delDept(int id) throws ServiceException;
+
+//    医生模块
+    boolean addDoctor(Login login, Doctor doctor) throws ServiceException;
 }

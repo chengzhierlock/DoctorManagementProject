@@ -2,15 +2,9 @@ package org.example.java142_project.service.impl;
 
 import org.example.java142_project.common.exception.DAOException;
 import org.example.java142_project.common.exception.ServiceException;
-import org.example.java142_project.dao.DeptDAO;
-import org.example.java142_project.dao.EducationDAO;
-import org.example.java142_project.dao.JobDAO;
-import org.example.java142_project.dao.impl.DepartDAOImpl;
-import org.example.java142_project.dao.impl.EducationDAOImpl;
-import org.example.java142_project.dao.impl.JobDAOImpl;
-import org.example.java142_project.entity.Dept;
-import org.example.java142_project.entity.Education;
-import org.example.java142_project.entity.Job;
+import org.example.java142_project.dao.*;
+import org.example.java142_project.dao.impl.*;
+import org.example.java142_project.entity.*;
 import org.example.java142_project.service.DoctorService;
 
 import java.util.List;
@@ -19,6 +13,8 @@ public class DoctorServiceImpl implements DoctorService {
     private JobDAO jobDAO = new JobDAOImpl();
     private EducationDAO eduDAO = new EducationDAOImpl();
     private DeptDAO depDAO = new DepartDAOImpl();
+    private LoginDAO loginDAO = new LoginDAOImpl();
+    private DoctorDAO doctorDAO = new DoctorDAOImpl();
     @Override
     public List<Job> listJobAll() throws ServiceException {
         try {
@@ -95,6 +91,17 @@ public class DoctorServiceImpl implements DoctorService {
     public boolean delDept(int id) throws ServiceException {
         try {
             return depDAO.del(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean addDoctor(Login login, Doctor doctor) throws ServiceException {
+        try {
+            int id = loginDAO.addRec(login);
+            doctor.setDid(id);
+            return doctorDAO.insert(doctor);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage());
         }

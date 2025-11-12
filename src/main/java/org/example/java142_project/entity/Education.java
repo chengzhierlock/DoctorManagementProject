@@ -34,10 +34,6 @@ public class Education {
 
     @Override
     public String toString() {
-        return "Education{" +
-                "eid=" + eid +
-                ", enmae='" + ename + '\'' +
-                ", edescp='" + edescp + '\'' +
-                '}';
+        return this.ename;
     }
 }

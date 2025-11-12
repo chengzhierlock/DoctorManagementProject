@@ -34,10 +34,6 @@ public class Job {
 
     @Override
     public String toString() {
-        return "job{" +
-                "jobid=" + jobid +
-                ", jobname='" + jobname + '\'' +
-                ", jobdescp='" + jobdescp + '\'' +
-                '}';
+        return this.jobname;
     }
 }

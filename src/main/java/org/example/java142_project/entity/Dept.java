@@ -11,11 +11,7 @@ public class Dept {
 
     @Override
     public String toString() {
-        return "Dept{" +
-                "deptid=" + deptid +
-                ", deptname='" + deptname + '\'' +
-                ", deptdescp='" + deptdescp + '\'' +
-                '}';
+        return this.deptname;
     }
 
     public int getDeptid() {

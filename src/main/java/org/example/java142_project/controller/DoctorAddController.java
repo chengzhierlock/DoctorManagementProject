@@ -4,19 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.example.java142_project.common.constant.Information;
 import org.example.java142_project.common.controller.BaseController;
 import org.example.java142_project.common.exception.ServiceException;
 import org.example.java142_project.common.ui.UIConstant;
 import org.example.java142_project.common.ui.UIMyManager;
 import org.example.java142_project.common.util.AlertUtil;
-import org.example.java142_project.entity.Dept;
-import org.example.java142_project.entity.Education;
-import org.example.java142_project.entity.Job;
+import org.example.java142_project.entity.*;
 import org.example.java142_project.service.DoctorService;
 import org.example.java142_project.service.impl.DoctorServiceImpl;
 
@@ -42,9 +39,24 @@ public class DoctorAddController extends BaseController implements Initializable
     public TableView deptTab;
     public TableColumn deptidCol;
     public TableColumn deptnameCol;
+    public ComboBox<Job> jobCom;
+    public ComboBox<Dept> deptCom;
+    public ComboBox<Education> eduCom;
+    public ComboBox<String> iconCom;
+    public ImageView iconView;
+    public TextField loginnameRef;
+    public TextField nameRef;
+    public DatePicker birthdayDate;
+    public RadioButton maleRadio;
+    public RadioButton femaleRadio;
     ObservableList<Job> jobObj = FXCollections.observableArrayList();
     ObservableList<Education> eduObj = FXCollections.observableArrayList();
     ObservableList<Dept> deptObj = FXCollections.observableArrayList();
+    private int jobid;
+    private int departid;
+    private int eduid;
+    private String iconImg;
+    private ToggleGroup group = new ToggleGroup();
     private DoctorService doctorService = new DoctorServiceImpl();
     public void colToPropertie() {
         this.colToProper(DoctorAddController.class);
@@ -88,7 +100,40 @@ public class DoctorAddController extends BaseController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-    loadData();
+        maleRadio.setToggleGroup(group);
+        femaleRadio.setToggleGroup(group);
+        maleRadio.setSelected(true);
+//        所有职称
+        try {
+            List<Job> jobs = doctorService.listJobAll();
+            List<Dept> depts = doctorService.listDepAll();
+            List<Education> educations = doctorService.listEduAll();
+            jobCom.getItems().addAll(jobs);
+            deptCom.getItems().addAll(depts);
+            eduCom.getItems().addAll(educations);
+            iconCom.getItems().addAll("/imgs/icon1.jpg","/imgs/icon2.jpg","/imgs/icon3.jpg","/imgs/icon4.jpg","/imgs/icon5.jpg");
+        } catch (ServiceException e) {
+            throw new RuntimeException(e);
+        }
+        jobCom.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            jobid = newValue.getJobid();
+        });
+        deptCom.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            departid = newValue.getDeptid();
+        });
+        eduCom.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            eduid = newValue.getEid();
+        });
+        loadData();
     }
 
     public void addJobHandle(ActionEvent actionEvent) {
@@ -176,5 +221,38 @@ public class DoctorAddController extends BaseController implements Initializable
         } catch (ServiceException e) {
             AlertUtil.showError("删除失败");
         }
+    }
+
+    public void chooseImg(ActionEvent actionEvent) {
+        String selectedItem = iconCom.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            Image img = new Image(getClass().getResourceAsStream(selectedItem));
+            iconView.setImage(img);
+            this.iconImg = selectedItem;
+        }
+    }
+
+    public void addDoctorHandle(ActionEvent actionEvent) {
+        if(loginnameRef.equals("")||nameRef.equals("")) {
+            AlertUtil.showError("添加失败", Information.FULLDATA);
+            return;
+        }
+        Login login = new Login();
+        login.setLoginname(loginnameRef.getText());
+        Doctor doctor = new Doctor();
+        doctor.setName(nameRef.getText());
+        doctor.setBirthday(birthdayDate.getValue().toString());
+        doctor.setGender(maleRadio.isSelected()?"男":"女");
+        doctor.setJoid(this.jobid);
+        doctor.setDeid(this.departid);
+        doctor.setEdid(this.eduid);
+        try {
+            doctorService.addDoctor(login,doctor);
+            AlertUtil.showInfo("添加成功", Information.AddOK);
+            UIMyManager.show(MainController.nodeList,UIConstant.DOC_SET);
+        } catch (ServiceException e) {
+            AlertUtil.showError("错误", "添加失败" + e.getMessage());
+        }
+
     }
 }

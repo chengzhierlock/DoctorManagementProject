@@ -56,4 +56,23 @@ public abstract class MyJDBCTemplate {
         }
         return list;
     }
+
+//    添加医生记录 返回id
+    public int insertRecord(final String SQL,Object ...params) throws DataException {
+        Connection conn = JDBCUtil.getJdbcUtil().getConn();
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL,PreparedStatement.RETURN_GENERATED_KEYS);
+            extraced(preparedStatement,params);
+            int row = preparedStatement.executeUpdate();
+            if (row <1) throw new DataException("添加记录返回主键出错");
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataException("添加记录返回主键出错");
+        }
+        return 0;
+    }
 }
