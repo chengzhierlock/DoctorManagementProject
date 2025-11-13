@@ -5,8 +5,11 @@ import org.example.java142_project.common.exception.DAOException;
 import org.example.java142_project.common.exception.DataException;
 import org.example.java142_project.dao.DoctorDAO;
 import org.example.java142_project.entity.Doctor;
+import org.example.java142_project.vo.DoctorVO;
+import org.example.java142_project.vo.mapper.DoctorVOMapper;
 
 import java.util.List;
+import java.util.Map;
 
 public class DoctorDAOImpl extends MyJDBCTemplate implements DoctorDAO {
     @Override
@@ -37,5 +40,56 @@ public class DoctorDAOImpl extends MyJDBCTemplate implements DoctorDAO {
     @Override
     public boolean del(int id) throws DAOException {
         return false;
+    }
+
+    @Override
+    public List<DoctorVO> ListByPage(Map<String, String> map) throws   DAOException {
+        String baseSql = """
+                select
+                d.did,d.name,d.gender,d.birthday,l.loginname,d.joid,j.jobname,l.pass,l.roleid,l.islogin,d.deid,de.departname
+                ,d.edid,e.ename,d.iconimg
+                from
+                tab_doctor d
+                left join
+                tab_login l
+                on d.did = l.id
+                left join tab_jobinfo j
+                on d.joid = j.jobid
+                left join tab_depatinfo de
+                on d.deid = de.departid
+                left join tab_educationinfo e
+                on d.edid = e.eid
+                where 1 = 1
+                """;
+        try {
+            return this.queryRecord(baseSql, new DoctorVOMapper(), map);
+        } catch (DataException e) {
+            throw new DAOException(e.getMessage());
+        }
+    }
+
+    @Override
+    public int countPage(Map<String, String> map) throws DAOException {
+        String sql = """
+                select
+                count(d.did) num
+                from
+                tab_doctor d
+                left join
+                tab_login l
+                on d.did = l.id
+                left join tab_jobinfo j
+                on d.joid = j.jobid
+                left join tab_depatinfo de
+                on d.deid = de.departid
+                left join tab_educationinfo e
+                on d.edid = e.eid
+                where 1 = 1
+                """;
+        try {
+            return this.countRecord(sql, map);
+        } catch (DataException e) {
+            throw new DAOException(e.getMessage());
+        }
     }
 }

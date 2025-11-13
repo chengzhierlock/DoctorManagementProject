@@ -1,5 +1,6 @@
 package org.example.java142_project.common.dao;
 
+import org.example.java142_project.common.exception.DAOException;
 import org.example.java142_project.common.exception.DataException;
 import org.example.java142_project.common.util.JDBCUtil;
 import org.example.java142_project.dao.RowMapper;
@@ -8,8 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 //模版设计
 public abstract class MyJDBCTemplate {
@@ -74,5 +77,61 @@ public abstract class MyJDBCTemplate {
             throw new DataException("添加记录返回主键出错");
         }
         return 0;
+    }
+
+
+    public StringBuilder buildSQL(String SQL,Map<String,String> map) {
+        StringBuilder sbuf = new StringBuilder(SQL);
+        if(map != null && map.size()>0){
+//            不拼入sql
+            List<String> skipList = Arrays.asList("offset","size");
+            for(String key:map.keySet())
+                if(!skipList.contains(key)) {
+                    sbuf.append(" and "+key);
+                    sbuf.append(" like concat('%','");
+                    sbuf.append(map.get(key));
+                    sbuf.append("','%'");
+            }
+        }
+        return sbuf;
+    }
+
+//    记录数
+    public int countRecord(final String SQL, Map<String,String> map) throws DataException {
+        Connection conn = JDBCUtil.getJdbcUtil().getConn();
+        StringBuilder sbuf = buildSQL(SQL,map);
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sbuf.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataException("统计记录出差");
+        }
+        return 0;
+    }
+
+    public <T> List<T> queryRecord(final String SQL, RowMapper<T> rowMapper,Map<String,String> map) throws DataException {
+        List<T> list = new LinkedList<>();
+        Connection conn = JDBCUtil.getJdbcUtil().getConn();
+        StringBuilder sbuf = buildSQL(SQL,map);
+        sbuf.append(" limit ");
+        sbuf.append(Integer.parseInt(map.get("offset")));
+        sbuf.append(",");
+        sbuf.append(Integer.parseInt(map.get("size")));
+        String sql = sbuf.toString();
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                T t = rowMapper.mapRow(resultSet);
+                list.add(t);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new DataException("分页查询出错");
+        }
     }
 }

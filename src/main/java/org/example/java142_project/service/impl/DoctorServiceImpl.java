@@ -6,8 +6,11 @@ import org.example.java142_project.dao.*;
 import org.example.java142_project.dao.impl.*;
 import org.example.java142_project.entity.*;
 import org.example.java142_project.service.DoctorService;
+import org.example.java142_project.vo.DoctorVO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DoctorServiceImpl implements DoctorService {
     private JobDAO jobDAO = new JobDAOImpl();
@@ -102,6 +105,35 @@ public class DoctorServiceImpl implements DoctorService {
             int id = loginDAO.addRec(login);
             doctor.setDid(id);
             return doctorDAO.insert(doctor);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<DoctorVO> listDoctorAll(Map<String, String> map) throws ServiceException {
+        int page = 0;//当前页
+        int size = 0;//每页记录
+        if (map.containsKey("pages")) {
+            page = Integer.parseInt(map.get("pages"));
+            map.remove("pages");
+        }
+        if (map.containsKey("size")) {
+            size = Integer.parseInt(map.get("size"));
+        }
+//        设置每页起始记录
+        map.put("offset",String.valueOf((page-1)*size));
+        try {
+            return doctorDAO.ListByPage(map);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public int CountInfo(Map<String, String> map) throws ServiceException {
+        try {
+            return doctorDAO.countPage(map);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage());
         }
