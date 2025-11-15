@@ -22,7 +22,12 @@ public class DepartDAOImpl extends MyJDBCTemplate implements DeptDAO {
 
     @Override
     public Dept selectById(int id) throws DAOException {
-        return null;
+        String SQL = "select departid,departname,departdescp from tab_depatinfo where departid=?";
+        try {
+            return this.queryOne(SQL,new DepartMapper(),id);
+        } catch (DataException e) {
+            throw new DAOException(e.getMessage());
+        }
     }
 
     @Override

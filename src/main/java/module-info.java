@@ -11,6 +11,7 @@ module org.example.java142_project {
 
     opens org.example.java142_project to javafx.fxml;
     opens org.example.java142_project.entity to javafx.base;
+    opens org.example.java142_project.vo to javafx.base;
 
     exports org.example.java142_project;
     exports org.example.java142_project.controller;

@@ -43,7 +43,7 @@ public class DoctorDAOImpl extends MyJDBCTemplate implements DoctorDAO {
     }
 
     @Override
-    public List<DoctorVO> ListByPage(Map<String, String> map) throws   DAOException {
+    public List<DoctorVO> ListByPage(Map<String, String> map) throws DAOException {
         String baseSql = """
                 select
                 d.did,d.name,d.gender,d.birthday,l.loginname,d.joid,j.jobname,l.pass,l.roleid,l.islogin,d.deid,de.departname

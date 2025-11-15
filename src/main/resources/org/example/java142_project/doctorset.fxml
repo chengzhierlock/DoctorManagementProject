@@ -17,40 +17,40 @@
       <Line endX="735.7999267578125" endY="-7.62939453125E-6" layoutX="117.0" layoutY="74.0" startX="-100.0" />
       <Label layoutX="34.0" layoutY="51.0" text="查询信息" />
       <Label layoutX="43.0" layoutY="94.0" text="名字" />
-      <TextField layoutX="82.0" layoutY="90.0" />
+      <TextField layoutX="82.0" layoutY="90.0" fx:id="nameRef"/>
       <Label layoutX="386.0" layoutY="94.0" text="性别" />
-      <RadioButton layoutX="419.0" layoutY="94.0" mnemonicParsing="false" text="男" />
-      <RadioButton layoutX="466.0" layoutY="94.0" mnemonicParsing="false" text="女" />
+      <RadioButton layoutX="419.0" layoutY="94.0" mnemonicParsing="false" text="男" fx:id="maleRad"/>
+      <RadioButton layoutX="466.0" layoutY="94.0" mnemonicParsing="false" text="女" fx:id="femaleRad"/>
       <Label layoutX="647.0" layoutY="94.0" text="职称" />
-      <ComboBox layoutX="681.0" layoutY="90.0" prefWidth="150.0" />
+      <ComboBox layoutX="681.0" layoutY="90.0" prefWidth="150.0" fx:id="jobCom"/>
       <Label layoutX="43.0" layoutY="143.0" text="科室" />
       <Label layoutX="383.0" layoutY="143.0" text="学历" />
-      <ComboBox layoutX="425.0" layoutY="139.0" prefWidth="150.0" />
-      <Button layoutX="767.0" layoutY="139.0" mnemonicParsing="false" text="查询信息" />
-      <ComboBox layoutX="88.0" layoutY="139.0" prefWidth="150.0" />
+      <ComboBox layoutX="425.0" layoutY="139.0" prefWidth="150.0" fx:id="eduCom"/>
+      <Button layoutX="767.0" layoutY="139.0" mnemonicParsing="false" text="查询信息" onAction="#queryHandle"/>
+      <ComboBox layoutX="88.0" layoutY="139.0" prefWidth="150.0" fx:id="deptCom"/>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c4d9ec" height="63.0" layoutX="43.0" layoutY="191.0" stroke="BLACK" strokeType="INSIDE" width="825.0" />
       <Button layoutX="61.0" layoutY="210.0" mnemonicParsing="false" text="添加医生" />
-      <Button layoutX="163.0" layoutY="210.0" mnemonicParsing="false" text="查看医生详细信息" />
+      <Button layoutX="163.0" layoutY="210.0" mnemonicParsing="false" text="查看医生详细信息" onAction="#viewDocHandle"/>
       <Button layoutX="331.0" layoutY="210.0" mnemonicParsing="false" text="删除医生" />
-      <Button layoutX="455.0" layoutY="210.0" mnemonicParsing="false" text="更新医生" />
-      <Button layoutX="548.0" layoutY="210.0" mnemonicParsing="false" text="显示所有记录" />
-      <Label layoutX="681.0" layoutY="214.0" text="共10条记录，当前第1页，共4页" />
+      <Button layoutX="455.0" layoutY="210.0" mnemonicParsing="false" text="更新医生" onAction="#updDocHandle"/>
+      <Button layoutX="548.0" layoutY="210.0" mnemonicParsing="false" text="显示所有记录" onAction="#refreshData"/>
+      <Label layoutX="681.0" layoutY="214.0" text="共10条记录，当前第1页，共4页" fx:id="pageInfoRef"/>
       <Label layoutX="43.0" layoutY="277.0" text="显示医生信息" />
-      <TableView layoutX="43.0" layoutY="304.0" prefHeight="200.0" prefWidth="825.0">
+      <TableView layoutX="43.0" layoutY="304.0" prefHeight="200.0" prefWidth="825.0" fx:id="docTab">
         <columns>
-          <TableColumn prefWidth="75.0" text="编号" />
-          <TableColumn prefWidth="75.0" text="登录名" />
-          <TableColumn prefWidth="75.0" text="姓名" />
-          <TableColumn prefWidth="75.0" text="性别" />
-          <TableColumn prefWidth="75.0" text="生日" />
-          <TableColumn prefWidth="75.0" text="职称" />
-          <TableColumn prefWidth="75.0" text="部门" />
-          <TableColumn prefWidth="75.0" text="学历" />
+            <TableColumn fx:id="didCol" prefWidth="75.0" text="编号" />
+            <TableColumn fx:id="loginNameCol" prefWidth="75.0" text="登录名" />
+            <TableColumn fx:id="nameCol" prefWidth="75.0" text="姓名" />
+            <TableColumn fx:id="genderCol" prefWidth="75.0" text="性别" />
+            <TableColumn fx:id="birthdayCol" prefWidth="75.0" text="生日" />
+            <TableColumn fx:id="jobnameCol" prefWidth="75.0" text="职称" />      <!-- 改为jobnameCol -->
+            <TableColumn fx:id="departnameCol" prefWidth="75.0" text="部门" />   <!-- 改为departnameCol -->
+            <TableColumn fx:id="ednameCol" prefWidth="75.0" text="学历" />
         </columns>
       </TableView>
-      <Button layoutX="43.0" layoutY="542.0" mnemonicParsing="false" text="首页" />
-      <Button layoutX="297.0" layoutY="542.0" mnemonicParsing="false" text="上一页" />
-      <Button layoutX="521.0" layoutY="542.0" mnemonicParsing="false" text="下一页" />
-      <Button layoutX="767.0" layoutY="542.0" mnemonicParsing="false" text="尾页" />
+      <Button layoutX="43.0" layoutY="542.0" mnemonicParsing="false" text="首页" onAction="#firstPage"/>
+      <Button layoutX="297.0" layoutY="542.0" mnemonicParsing="false" text="上一页" onAction="#prePage"/>
+      <Button layoutX="521.0" layoutY="542.0" mnemonicParsing="false" text="下一页" onAction="#nextPage"/>
+      <Button layoutX="767.0" layoutY="542.0" mnemonicParsing="false" text="尾页" onAction="#lastPage"/>
    </children>
 </AnchorPane>

@@ -12,6 +12,15 @@ public enum  UIConstant {
         public String toString() {
             return "/org/example/java142_project/doctorset.fxml";
         }
+    },
+    ADMIN_SET (LoadType.LAZY) {
+        @Override
+        public String toString() {return "/org/example/java142_project/adminset.fxml";}
+    },
+
+    DOC_VIEW_UPD(LoadType.LAZY) {
+        @Override
+        public String toString() {return "/org/example/java142_project/doctorviewupd.fxml";}
     };
 
     private LoadType loadType;

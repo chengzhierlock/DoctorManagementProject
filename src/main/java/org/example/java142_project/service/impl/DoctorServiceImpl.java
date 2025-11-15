@@ -46,6 +46,15 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public Job finaOneJob(int id) throws ServiceException {
+        try {
+            return jobDAO.selectById(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    @Override
     public boolean addEducation(Education ed) throws ServiceException {
         try {
             return eduDAO.insert(ed);
@@ -67,6 +76,15 @@ public class DoctorServiceImpl implements DoctorService {
     public List<Education> listEduAll() throws ServiceException {
         try {
             return eduDAO.selectAll();
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public Education findOneEdu(int id) throws ServiceException {
+        try {
+            return eduDAO.selectById(id);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage());
         }
@@ -100,7 +118,24 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public Dept findOneDept(int id) throws ServiceException {
+        try {
+            return depDAO.selectById(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    @Override
     public boolean addDoctor(Login login, Doctor doctor) throws ServiceException {
+        try {
+            Login byName = loginDAO.findByName(login.getLoginname());
+            if (byName != null) {
+                throw new ServiceException("用户名已存在");
+            }
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
         try {
             int id = loginDAO.addRec(login);
             doctor.setDid(id);

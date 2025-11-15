@@ -12,14 +12,17 @@ public interface DoctorService {
     List<Job> listJobAll() throws ServiceException;
     boolean addJob(Job job) throws ServiceException;
     boolean delJob(int id) throws ServiceException;
+    Job finaOneJob (int id) throws ServiceException;
 //    学历
     boolean addEducation(Education ed) throws ServiceException;
     boolean delEducation(int eid) throws ServiceException;
     List<Education> listEduAll() throws ServiceException;
+    Education findOneEdu(int id) throws ServiceException;
 //    科室
     List<Dept> listDepAll() throws ServiceException;
     boolean addDept(Dept dept) throws ServiceException;
     boolean delDept(int id) throws ServiceException;
+    Dept findOneDept(int id) throws ServiceException;
 
 //    医生模块
 //    添加

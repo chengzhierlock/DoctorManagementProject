@@ -6,4 +6,5 @@ import org.example.java142_project.entity.Login;
 
 public interface LoginDAO extends BaseDAO<Login> {
     int addRec(Login login) throws DAOException;
+    Login findByName (String loginName) throws  DAOException;
 }

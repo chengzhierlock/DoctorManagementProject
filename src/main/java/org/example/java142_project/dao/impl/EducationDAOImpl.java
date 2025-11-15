@@ -22,7 +22,12 @@ public class EducationDAOImpl extends MyJDBCTemplate implements EducationDAO {
 
     @Override
     public Education selectById(int id) throws DAOException {
-        return null;
+        String SQL = "select eid,ename,edescp from tab_educationinfo where eid=?";
+        try {
+            return this.queryOne(SQL, new EducationMapper(), id);
+        } catch (DataException e) {
+            throw new DAOException(e.getMessage());
+        }
     }
 
     @Override

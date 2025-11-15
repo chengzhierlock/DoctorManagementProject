@@ -38,7 +38,12 @@ public class JobDAOImpl extends MyJDBCTemplate implements JobDAO {
 
     @Override
     public Job selectById(int id) throws DAOException {
-        return null;
+        String SQL = "select jobid,jobname,jobdescp from tab_jobinfo where jobid=?";
+        try {
+            return this.queryOne(SQL,new JobMapper(),id);
+        } catch (DataException e) {
+            throw new DAOException(e.getMessage());
+        }
     }
 
     @Override

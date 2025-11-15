@@ -60,6 +60,27 @@ public abstract class MyJDBCTemplate {
         return list;
     }
 
+//    查询一条记录
+    public <T>  T queryOne(final String SQL, RowMapper<T> rowMapper,Object ...params) throws DataException {
+
+        Connection conn = JDBCUtil.getJdbcUtil().getConn();
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(SQL);
+            if (params != null && params.length > 0) {
+                extraced(preparedStatement, params);
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                T t = rowMapper.mapRow(resultSet);
+                return t;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataException("查询一条记录出错");
+        }
+        return null;
+    }
+
 //    添加医生记录 返回id
     public int insertRecord(final String SQL,Object ...params) throws DataException {
         Connection conn = JDBCUtil.getJdbcUtil().getConn();
@@ -90,7 +111,7 @@ public abstract class MyJDBCTemplate {
                     sbuf.append(" and "+key);
                     sbuf.append(" like concat('%','");
                     sbuf.append(map.get(key));
-                    sbuf.append("','%'");
+                    sbuf.append("','%')");
             }
         }
         return sbuf;

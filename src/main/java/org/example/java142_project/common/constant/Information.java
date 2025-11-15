@@ -6,4 +6,6 @@ public class Information {
     public final static String FULLDATA="数据为空!";
     public final static String CHOOSEDEL="未选中项!";
     public final static String CONFIRMDEL="确定删除该记录吗？";
+    public final static int DOCTORVIEWSTATE = 1;
+    public final static int DOCTORSETSTATE = 2;
 }
