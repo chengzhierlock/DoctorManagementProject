@@ -102,4 +102,30 @@ public class DoctorDAOImpl extends MyJDBCTemplate implements DoctorDAO {
             throw new DAOException(e.getMessage());
         }
     }
+
+    @Override
+    public DoctorVO getDocLoginInfo(String loginname) throws DAOException {
+        String sql = """
+                select
+                d.did,d.name,d.gender,d.birthday,l.loginname,d.joid,j.jobname,l.pass,l.roleid,l.islogin,d.deid,de.departname
+                ,d.edid,e.ename,d.iconimg
+                from
+                tab_doctor d
+                left join
+                tab_login l
+                on d.did = l.id
+                left join tab_jobinfo j
+                on d.joid = j.jobid
+                left join tab_depatinfo de
+                on d.deid = de.departid
+                left join tab_educationinfo e
+                on d.edid = e.eid
+                where did = ?
+                """;
+        try {
+            return this.queryOne(sql,new DoctorVOMapper(),loginname);
+        } catch (DataException e) {
+            throw new DAOException(e.getMessage());
+        }
+    }
 }

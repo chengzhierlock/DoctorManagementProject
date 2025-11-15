@@ -59,4 +59,15 @@ public class LoginDAOImpl extends MyJDBCTemplate implements LoginDAO {
             throw new DAOException(e.getMessage());
         }
     }
+
+    @Override
+    public Login login(String name, String pass) throws DAOException {
+        String SQL = "select * from tab_login where loginname = ? and pass = ?";
+        try {
+            return this.queryOne(SQL,new LoginMapper(),name,pass);
+        } catch (DataException e) {
+            throw new DAOException("查询错误");
+        }
+    }
+
 }

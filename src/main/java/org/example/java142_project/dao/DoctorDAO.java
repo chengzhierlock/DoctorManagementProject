@@ -12,4 +12,5 @@ import java.util.Map;
 public interface DoctorDAO extends BaseDAO<Doctor> {
     List<DoctorVO> ListByPage(Map<String,String> map) throws DAOException;
     int  countPage(Map<String,String> map) throws DAOException;
+    DoctorVO getDocLoginInfo(String loginname) throws DAOException;
 }
