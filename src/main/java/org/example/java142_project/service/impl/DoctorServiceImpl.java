@@ -173,4 +173,23 @@ public class DoctorServiceImpl implements DoctorService {
             throw new ServiceException(e.getMessage());
         }
     }
+
+    @Override
+    public boolean editDoctor(Doctor doctor) throws ServiceException {
+
+        try {
+            return doctorDAO.update(doctor);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean delDoctor(int id) throws ServiceException {
+        try {
+                        return doctorDAO.del(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
 }

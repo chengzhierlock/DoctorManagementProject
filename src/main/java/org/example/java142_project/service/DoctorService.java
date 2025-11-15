@@ -31,4 +31,8 @@ public interface DoctorService {
     List<DoctorVO> listDoctorAll(Map<String,String> map) throws ServiceException;
 //    查询总数
     int CountInfo(Map<String,String> map) throws ServiceException;
+//    更新医生
+    boolean editDoctor (Doctor doctor) throws ServiceException;
+//    删除
+    boolean delDoctor(int id) throws ServiceException;
 }

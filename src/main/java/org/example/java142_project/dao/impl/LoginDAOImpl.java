@@ -32,7 +32,12 @@ public class LoginDAOImpl extends MyJDBCTemplate implements LoginDAO {
 
     @Override
     public boolean del(int id) throws DAOException {
-        return false;
+        String SQL = "delete from tab_login where id=?";
+        try {
+            return this.execUpd(SQL,id);
+        } catch (DataException e) {
+            throw new DAOException(e.getMessage());
+        }
     }
 
     @Override

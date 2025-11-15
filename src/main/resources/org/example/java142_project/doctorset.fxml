@@ -31,7 +31,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c4d9ec" height="63.0" layoutX="43.0" layoutY="191.0" stroke="BLACK" strokeType="INSIDE" width="825.0" />
       <Button layoutX="61.0" layoutY="210.0" mnemonicParsing="false" text="添加医生" />
       <Button layoutX="163.0" layoutY="210.0" mnemonicParsing="false" text="查看医生详细信息" onAction="#viewDocHandle"/>
-      <Button layoutX="331.0" layoutY="210.0" mnemonicParsing="false" text="删除医生" />
+      <Button layoutX="331.0" layoutY="210.0" mnemonicParsing="false" text="删除医生" onAction="#delDoctorHandle"/>
       <Button layoutX="455.0" layoutY="210.0" mnemonicParsing="false" text="更新医生" onAction="#updDocHandle"/>
       <Button layoutX="548.0" layoutY="210.0" mnemonicParsing="false" text="显示所有记录" onAction="#refreshData"/>
       <Label layoutX="681.0" layoutY="214.0" text="共10条记录，当前第1页，共4页" fx:id="pageInfoRef"/>

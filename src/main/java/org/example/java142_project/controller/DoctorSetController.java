@@ -229,4 +229,24 @@ public class DoctorSetController extends BaseController implements Initializable
         DoctorViewUpdUtil.setLocal(map);
         UIMyManager.show(MainController.nodeList,UIConstant.DOC_VIEW_UPD);
     }
+
+    public void delDoctorHandle(ActionEvent actionEvent) {
+        DoctorVO selectedItem = (DoctorVO)docTab.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            AlertUtil.showError("请选择要删除的医生");
+            return;
+        }
+        try {
+            boolean b = doctorService.delDoctor(selectedItem.getDid());
+            if (b) {
+                AlertUtil.showInfo("删除成功");
+                showAll();
+                loadPageInfo();
+            } else {
+                AlertUtil.showError("删除失败");
+            }
+        } catch (ServiceException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

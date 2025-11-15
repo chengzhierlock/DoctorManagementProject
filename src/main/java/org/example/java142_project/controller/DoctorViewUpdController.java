@@ -7,7 +7,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.example.java142_project.common.constant.Information;
 import org.example.java142_project.common.exception.ServiceException;
+import org.example.java142_project.common.ui.UIConstant;
+import org.example.java142_project.common.ui.UIMyManager;
+import org.example.java142_project.common.util.AlertUtil;
 import org.example.java142_project.entity.Dept;
+import org.example.java142_project.entity.Doctor;
 import org.example.java142_project.entity.Education;
 import org.example.java142_project.entity.Job;
 import org.example.java142_project.service.DoctorService;
@@ -34,12 +38,13 @@ public class DoctorViewUpdController implements Initializable {
             DoctorVO doctorVO = map.get(Information.DOCTORVIEWSTATE);
             showInfo(doctorVO);
             titleInfo.setText("查看医生信息");
-            butInfo.setDisable(true);
-            butInfo.setText("查看信息");
+            butInfo.setVisible(false);
+//            butInfo.setText("查看信息");
             iconCom.setVisible(false);
         } else if (map != null && map.containsKey(Information.DOCTORSETSTATE)) {
             DoctorVO doctorVO = map.get(Information.DOCTORSETSTATE);
             showInfo(doctorVO);
+            loginnameRef.setDisable(true);
             titleInfo.setText("修改医生信息");
             butInfo.setText("修改信息");
             iconCom.setDisable(false);
@@ -128,6 +133,31 @@ public class DoctorViewUpdController implements Initializable {
             Image img = new Image(getClass().getResourceAsStream(selectedItem));
             iconView.setImage(img);
             this.iconImg = selectedItem;
+        }
+    }
+
+    public void editDocHandle(ActionEvent actionEvent) {
+        if (nameRef.equals("")) {
+            AlertUtil.showError("操作失败", Information.FULLDATA);
+            return;
+        }
+        Doctor doctor = new Doctor();
+        doctor.setName(nameRef.getText());
+        doctor.setGender(maleRadio.isSelected() ? "男" : "女");
+        doctor.setBirthday(birthdayDate.getValue().toString());
+        doctor.setIconimg(this.iconImg);
+        doctor.setJoid(this.jobid);
+        doctor.setDeid(this.departid);
+        doctor.setEdid(this.eduid);
+        doctor.setDid(DoctorViewUpdUtil.getLocal().get().get(Information.DOCTORSETSTATE).getDid());
+        try {
+            boolean b = doctorService.editDoctor(doctor);
+            if (b) {
+                AlertUtil.showInfo("操作成功", Information.UpdateOK);
+                UIMyManager.show(MainController.nodeList, UIConstant.DOC_SET);
+            }
+        } catch (ServiceException e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

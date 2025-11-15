@@ -34,12 +34,22 @@ public class DoctorDAOImpl extends MyJDBCTemplate implements DoctorDAO {
 
     @Override
     public boolean update(Doctor doctor) throws DAOException {
-        return false;
+        String SQL = "update tab_doctor set name = ?,gender = ?,birthday = ?,joid = ?,deid = ?,edid = ?,iconimg = ? where did = ?";
+        try {
+            return this.execUpd(SQL,doctor.getName(),doctor.getGender(),doctor.getBirthday(),doctor.getJoid(),doctor.getDeid(),doctor.getEdid(),doctor.getIconimg(),doctor.getDid());
+        } catch (DataException e) {
+            throw new DAOException(e.getMessage());
+        }
     }
 
     @Override
     public boolean del(int id) throws DAOException {
-        return false;
+        String SQL = "delete from tab_doctor where did = ?";
+        try {
+            return this.execUpd(SQL,id);
+        } catch (DataException e) {
+            throw new DAOException(e.getMessage());
+        }
     }
 
     @Override
