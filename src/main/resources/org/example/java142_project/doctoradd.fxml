@@ -75,7 +75,6 @@
       <TextField fx:id="deptdescpRef" layoutX="871.0" layoutY="357.0" prefHeight="23.0" prefWidth="198.0" />
       <Label layoutX="835.0" layoutY="361.0" text="介绍" />
       <Button layoutX="928.0" layoutY="308.0" mnemonicParsing="false" onAction="#addDeptHandle" text="添加科室" />
-      <Button mnemonicParsing="false" text="Button" />
       <TableView fx:id="deptTab" layoutX="665.0" layoutY="395.0" prefHeight="124.0" prefWidth="410.0">
         <columns>
           <TableColumn fx:id="deptidCol" prefWidth="75.0" text="序号" />

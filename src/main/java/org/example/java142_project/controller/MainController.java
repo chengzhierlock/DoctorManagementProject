@@ -37,10 +37,15 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        加载所有页面
-        new Thread(() -> UIMyManager.initView()).start();
-//        二级菜单通过观察者列表实现
+//        System.out.println("=== MainController initialize START ===");
+
+        // 二级菜单通过观察者列表实现
         nodeList = mainFrame.getChildren();
+//        System.out.println("nodeList initialized: " + (nodeList != null));
+
+        // 加载所有页面
+        UIMyManager.initView();
+//        System.out.println("UIMyManager.initView completed");
 //        获取登录信息
         Map<Integer, Object> loginInfo = LoginInfoUtil.getLoginInfo();
         if (loginInfo!=null) {
@@ -65,6 +70,7 @@ public class MainController implements Initializable {
                 anaMenu.setVisible(false);
             }
         }
+//        System.out.println("=== MainController initialize END ===");
     }
 
     public void docAddHandle(ActionEvent actionEvent) {
@@ -73,5 +79,16 @@ public class MainController implements Initializable {
 
     public void docSetHandle(ActionEvent actionEvent) {
         UIMyManager.show(nodeList, UIConstant.DOC_SET);
+    }
+
+    public void drugAddHandle(ActionEvent actionEvent) {
+        UIMyManager.show(nodeList, UIConstant.DRUG_ADD);
+    }
+
+    public void drugSetHandle(ActionEvent actionEvent) {
+        UIMyManager.show(nodeList, UIConstant.DRUG_SET);
+    }
+
+    public void drugQueryHandle(ActionEvent actionEvent) {
     }
 }

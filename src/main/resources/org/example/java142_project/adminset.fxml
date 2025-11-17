@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.java142_project.controller.AdminSetController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="610.0" prefWidth="890.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.java142_project.controller.AdminSetController">
+   <children>
+      <Label layoutX="41.0" layoutY="29.0" text="添加管理员信息">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="41.0" layoutY="90.0" text="登录名" />
+      <TextField layoutX="94.0" layoutY="86.0" />
+      <Label layoutX="44.0" layoutY="165.0" text="邮箱" />
+      <TextField layoutX="95.0" layoutY="161.0" />
+      <Label layoutX="325.0" layoutY="90.0" text="性别" />
+      <RadioButton layoutX="372.0" layoutY="90.0" mnemonicParsing="false" text="男" />
+      <RadioButton layoutX="445.0" layoutY="90.0" mnemonicParsing="false" text="女" />
+      <Label layoutX="586.0" layoutY="91.0" text="手机" />
+      <TextField layoutX="641.0" layoutY="86.0" />
+      <Label layoutX="325.0" layoutY="165.0" text="微信" />
+      <TextField layoutX="365.0" layoutY="161.0" />
+      <Label layoutX="588.0" layoutY="165.0" text="QQ" />
+      <TextField layoutX="642.0" layoutY="161.0" />
+      <Label layoutX="47.0" layoutY="241.0" text="头像" />
+      <ComboBox layoutX="94.0" layoutY="237.0" prefWidth="150.0" />
+      <ImageView fitHeight="125.0" fitWidth="134.0" layoutX="325.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="583.0" layoutY="241.0" text="姓名" />
+      <TextField layoutX="642.0" layoutY="237.0" />
+      <Button layoutX="749.0" layoutY="350.0" mnemonicParsing="false" text="添加管理员信息" />
+      <Label layoutX="44.0" layoutY="380.0" text="管理员一览表">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TableView layoutX="41.0" layoutY="410.0" prefHeight="170.0" prefWidth="773.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+   </children>
 </AnchorPane>

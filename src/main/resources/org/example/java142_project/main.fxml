@@ -21,9 +21,9 @@
           </Menu>
           <Menu fx:id="drugMenu" mnemonicParsing="false" text="药品设置">
             <items>
-              <MenuItem mnemonicParsing="false" text="添加药品" />
-              <MenuItem mnemonicParsing="false" text="药品管理" />
-              <MenuItem mnemonicParsing="false" text="药品查询" />
+              <MenuItem mnemonicParsing="false" text="添加药品"  onAction="#drugAddHandle"/>
+              <MenuItem mnemonicParsing="false" text="药品管理" onAction="#drugSetHandle"/>
+              <MenuItem mnemonicParsing="false" text="药品查询" onAction="#drugQueryHandle"/>
             </items>
           </Menu>
           <Menu fx:id="patientMenu" mnemonicParsing="false" text="病人就医">

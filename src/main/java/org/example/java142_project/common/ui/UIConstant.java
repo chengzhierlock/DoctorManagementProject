@@ -21,6 +21,18 @@ public enum  UIConstant {
     DOC_VIEW_UPD(LoadType.LAZY) {
         @Override
         public String toString() {return "/org/example/java142_project/doctorviewupd.fxml";}
+    },
+    DRUG_ADD(LoadType.LAZY) {
+        @Override
+        public String toString() {
+            return "/org/example/java142_project/drugadd.fxml";
+        }
+    },
+    DRUG_SET(LoadType.LAZY) {
+        @Override
+        public String toString() {
+            return "/org/example/java142_project/drugset.fxml";
+        }
     };
 
     private LoadType loadType;
