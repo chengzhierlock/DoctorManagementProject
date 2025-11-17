@@ -8,4 +8,6 @@ public interface LoginDAO extends BaseDAO<Login> {
     int addRec(Login login) throws DAOException;
     Login findByName (String loginName) throws  DAOException;
     Login login(String name,String pass) throws DAOException;
+    boolean verifyPassword(String loginname, String password) throws DAOException;
+    boolean updatePassword(String loginname, String newPassword) throws DAOException;
 }

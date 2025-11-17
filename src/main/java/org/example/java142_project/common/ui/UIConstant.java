@@ -33,6 +33,12 @@ public enum  UIConstant {
         public String toString() {
             return "/org/example/java142_project/drugset.fxml";
         }
+    },
+    PASSWORD_UPDATE(LoadType.LAZY) {
+        @Override
+        public String toString() {
+            return "/org/example/java142_project/passwordupdate.fxml";
+        }
     };
 
     private LoadType loadType;

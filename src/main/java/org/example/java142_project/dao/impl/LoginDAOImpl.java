@@ -70,4 +70,26 @@ public class LoginDAOImpl extends MyJDBCTemplate implements LoginDAO {
         }
     }
 
+    @Override
+    public boolean verifyPassword(String loginname, String password) throws DAOException {
+        String SQL = "SELECT * FROM tab_login WHERE loginname = ? AND pass = ?";
+        try {
+            Login login = this.queryOne(SQL, new LoginMapper(), loginname, password);
+            return login != null;
+        } catch (DataException e) {
+            throw new DAOException("验证密码时发生错误: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean updatePassword(String loginname, String newPassword) throws DAOException {
+        String SQL = "UPDATE tab_login SET pass = ? WHERE loginname = ?";
+        try {
+            return this.execUpd(SQL, newPassword, loginname);
+        } catch (DataException e) {
+            throw new DAOException("更新密码时发生错误: " + e.getMessage());
+        }
+    }
+
+
 }

@@ -46,7 +46,7 @@
             </Menu>
             <Menu fx:id="sysMenu" mnemonicParsing="false" text="系统设置">
                 <items>
-                    <MenuItem mnemonicParsing="false" text="修改密码" />
+                    <MenuItem mnemonicParsing="false" text="修改密码" onAction="#passwordUpdateHandle"/>
                     <MenuItem mnemonicParsing="false" text="个人信息" />
                     <MenuItem mnemonicParsing="false" text="注销信息" />
                     <MenuItem mnemonicParsing="false" text="退出系统" />

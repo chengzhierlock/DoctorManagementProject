@@ -91,4 +91,7 @@ public class MainController implements Initializable {
 
     public void drugQueryHandle(ActionEvent actionEvent) {
     }
+    public void passwordUpdateHandle(ActionEvent actionEvent) {
+        UIMyManager.show(nodeList, UIConstant.PASSWORD_UPDATE);
+    }
 }
